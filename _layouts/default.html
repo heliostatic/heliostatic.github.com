@@ -1,0 +1,19 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Ben Cohen | {{ page.title }}</title>
+		<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.8.0r4/build/reset/reset-min.css">
+		<link href="/css/main.css" rel="stylesheet" type="text/css" media="all" />
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+	</head>
+	<body>
+	  {% include analytics.html %}
+		<div id="container">
+				<div id="content">
+			    {{ content }}
+			  </div>
+		</div>
+		{% include js.html %}
+	</body>
+</html>

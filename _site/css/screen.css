@@ -1,0 +1,208 @@
+
+/**
+ * Grid
+ */
+#grid{
+
+    /* Vertical grid lines */
+    background: url('../resources/images/bg-grid-980.gif') repeat-y 0 0;
+
+    /* Dimensions - same width as your grid with gutters */
+    width: 980px;
+
+    /* Grid (left-aligned)
+    position: absolute;
+    top: 0;
+    left: 0;
+    */
+
+    /* Grid (centered) */
+    position: absolute;
+    top: 0;
+    left: 50%;
+    margin-left: -490px;
+
+}
+
+/**
+ * Horizontal grid lines, defined by your base line height
+ *
+ * Remember, the CSS properties that define the box model:
+ * visible height = height + borders + margins + padding
+ */
+#grid .horiz{
+
+    /* 20px line height */
+    height: 19px;
+    border-bottom: 1px dotted #aaa;
+    margin: 0;
+    padding: 0;
+
+}
+
+@font-face {
+	font-family: "MuseoSlab500"; 
+	src: url('../font/Museo_Slab_500.eot'); 
+	src: local('../font/Museo Slab 500'), local('../font/MuseoSlab-500'), url('../font/Museo_Slab_500.woff') format('woff'), url('../font/Museo_Slab_500.otf') format('opentype'), url('../font/Museo_Slab_500.svg#MuseoSlab-500') format('svg');
+}
+
+	html{
+		background:#f8f8f8;
+	}
+	body {
+		font-family:"MuseoSlab500",Georgia, serif;
+		font-size:20px;
+		line-height:40px;
+	}
+	#container {
+		width:940px;
+		margin-right:auto;
+		margin-left:auto;
+		margin-top:5%;
+		font-size:2em;
+	}
+	#content {
+		margin: 0 0 0 160px;
+		width:780px;
+	}
+	#container a{
+		position:relative;
+		text-decoration:none;
+		color:#b8b8b8;
+		text-shadow:#fff 0px 1px 1px, #777 0 -1px 1px;
+	}
+	#container a:hover {
+		color:#7AAE37;
+	}
+	#container p {
+		margin-bottom: 44px;
+		position:relative;
+	}
+	#container p#professional span.label {
+		display:none;
+	}
+	#container p#personal span.label {
+		display:none;
+	}
+	#container p#contact span.label {
+		display:none;
+	}
+	#container p span.label {
+		font-size:.5em;
+		color:#b8b8b8;
+		width:140px;
+		left:-160px;
+		text-align:right;
+		margin-right:20px;
+		top:30%;
+		position: absolute;
+	}
+	#container a span {
+		display:none;
+ 	}
+	#container a:hover span.flickr {
+		display:block;
+		position:absolute;
+		right:5%;
+	}			
+	#container p#professional:hover span.label {
+		display: block;
+	}
+
+	#container p#personal:hover span.label {
+		display: block;
+	}
+	#container p#contact:hover span.label {
+		display: block;
+		top:5%;
+	}
+	#portfolio {
+		display:none;
+		height:160px;
+	}
+	#portfolio h2 {
+		display: inline;
+		text-decoration:underline;
+	}
+	#portfolio #close_x {
+		font-family:tahoma;
+		font-size:.8em;
+		float:right;
+	}
+	/* The images styling is needed to turn the <ul> into a 3x3 grid */
+#images {
+	width: 				800px;
+	overflow:			hidden;
+	display:none;
+	margin-bottom:20px;
+	margin-left: auto;
+	margin-right: auto; 
+}
+#images ul {
+	list-style:			none;
+	float: 				left;
+	padding: 			0px;
+	margin: 			0px;
+}
+#images ul li {
+	display: 			inline;
+}
+#images ul li img {
+	border: 			none;
+	padding: 			0 5px 5px 0;
+/* 	width: 				50px;
+	height: 			50px; */
+	opacity: 			0.8;
+	-moz-opacity: 		0.8;	
+}
+#images ul li img:hover {
+	opacity: 			1;
+	-moz-opacity: 		1;
+}
+.post .aside {
+	font-size:12px;
+	color:#black;
+	width:140px;
+	right:-160px;
+	text-align:left;
+	position: absolute;
+	line-height:16px;
+	word-wrap: break-word;
+}
+.post p {
+	font-family:Baskerville;
+	font-size:16px;
+	line-height:140%;
+}
+.post{
+	width:620px;
+}
+#container {
+	margin-top:88px;
+}
+#grid .horiz{
+
+    /* 22px line height */
+    height: 21px;
+    border-bottom: 1px dotted #aaa;
+    margin: 0;
+    padding: 0;
+
+}
+.post p{
+	margin-bottom:44px;
+}		
+
+.post h1 + p:first-letter{
+	float: left;
+	padding: 0 8px 0 0;
+	font-size: 140px;
+	color: #2B2A24;
+	font-family:"MuseoSlab500";
+}
+	
+	h1, h2, h3 { margin-top:0; margin-bottom:0; }
+	h1 { font-size:1.3em; padding:1.45833em 0; line-height:1em; }
+	h2 { font-size:1.33333em; padding:1.25em 0; line-height:1em;}
+	h3 { font-size:1.16667em; padding:1.51786em 0; }
+	

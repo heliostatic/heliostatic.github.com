@@ -1,0 +1,69 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Ben Cohen | My Get-Back-To-Work Hack</title>
+		<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.8.0r4/build/reset/reset-min.css">
+		<link href="/css/main.css" rel="stylesheet" type="text/css" media="all" />
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+	</head>
+	<body>
+	  <script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-6015081-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ga);
+  })();
+
+</script>
+		<div id="container">
+				<div id="content">
+			    <div class="post">
+<h1>My Get-Back-To-Work Hack</h1>
+<p>I&#8217;ve been looking for a way to fight distractions on the web. I&#8217;ve tried <a href="http://visitsteve.com/work/selfcontrol/">SelfControl</a>, but just getting a &#8220;server not found&#8221; error in the browser when I visit a temptingly unproductive site isn&#8217;t particularly motivational.</p>
+<p>The hack for this I came up with today is cheap and dumb, but it works. If you want to be sure it&#8217;s worth your time, watch this 46 second long <a href="http://screenr.com/Ix7">screencast</a>, then read on if you like what you see.</p>
+<p>If you&#8217;re an experienced web developer, this will probably take you all of ten minutes to set up. If not, I&#8217;ve tried to explain it in pretty friendly terminology, but you might want to grab the nearest techie to help you out.</p>
+<h2>Step One: Block Distracting Domains</h2>
+<p>The <code>/etc/hosts</code> file tells your computer where other computers are. Normally, this file is almost empty; it just points your computer at itself, reminding it that its local address is <code>127.0.0.1</code>. Your computer doesn&#8217;t need to know much more than that because it uses <a href="http://en.wikipedia.org/wiki/Domain_Name_System"><span class="caps">DNS</span></a> and similar protocols to find other computers over the network. Still, every time your computer tries to talk to another computer, it checks <code>/etc/hosts</code> to see if we&#8217;ve specified the other computer&#8217;s address.</p>
+<p>We can make use of the <code>/etc/hosts</code> file to block specific domains that we shouldn&#8217;t be spending time on. We just associate those domains with a bad address &#8211; in this case, the address of our local machine.</p>
+<p>My <code>/etc/hosts</code> looks like <a href="http://gist.github.com/187138">this</a>. It&#8217;s the lines below the commented-out line about &#8220;distractions&#8221; that matter. Those lines say that the specified domains are served by my own computer. They aren&#8217;t, of course, so when I visit those sites, my browser gives me an error page.</p>
+<p>Go ahead and put your own time-wasting sites in there; be sure to add the &#8220;www.&#8221; variant, if the site has one. If you like, you can collapse all the domains onto one line after the &#8220;127.0.0.1&#8221;, but I find it easier to read over multiple lines.</p>
+<p>To an extent, this solves the problem: if you visit one of the domains you added to the file, you don&#8217;t get there. But as with SelfControl&#8217;s solution, an error page in your browser isn&#8217;t very motivational. Let&#8217;s go further.</p>
+<h2>Step Two: Serving Content for Blocked Domains</h2>
+<p>Since we&#8217;re directing requests for distracting domains to our own system, why not do something with those requests? Fire up a web server on the usual port (80). On a Mac, this is as simple as going to Sharing in System Preferences and ticking the box for Web Sharing. The text there may say that your computer&#8217;s website is available at some fancy address, but it&#8217;s also available on <a href="http://127.0.0.1/">http://127.0.0.1/</a>.</p>
+<p>Now, visit one of those sites you put in your <code>/etc/hosts</code>. You get a real webpage this time, right? Most likely, it&#8217;s whatever default page came with your web server software; it might say &#8220;It worked!&#8221; or something equally inane. The name of this file is probably <code>index.html.en</code> (or maybe without the &#8220;.en&#8221; part). On a Mac, it lives at <code>/Library/WebServer/Documents/index.html.en</code>. You should modify that file. Make it pretty, but not too pretty. Put a message in there that&#8217;s motivational to you. Visit one of your blocked sites, and you should see your custom message instead. Pretty good.</p>
+<p>There&#8217;s a problem, though. Say you blocked dumbsite.com. If you visit <code>http://dumbsite.com/foo/bar/baz.html</code>, you&#8217;ll get a <code>404 File Not Found</code> error from your local web server. That&#8217;s because you don&#8217;t have the files and directories the server is looking for inside the default folder your web server stores web pages in. You don&#8217;t want to have to provide these, either; you just want to serve the same page for every domain you&#8217;ve blocked.</p>
+<p>If you&#8217;re using Apache, you can use a couple of lines like <a href="http://gist.github.com/187146">this</a> inside your <code>httpd.conf</code> to rewrite any <span class="caps">URL</span> to point to a file in your document root (in this case, <code>index.php</code>, but change that to whatever you want). That will get you back to seeing your custom page when you visit a blocked domain, regardless of the <span class="caps">URL</span>.</p>
+<p>If you want to keep it simple, get all that working and stop here. You&#8217;ve got a nice custom reminder to get back to work, and few moving parts to maintain. If you&#8217;re comfortable setting up <span class="caps">PHP</span>, though, venture on for a little gravy.</p>
+<h2>Step Three: Doing Something Useful with Blocked Domains</h2>
+<p>I didn&#8217;t just want a motivational message. I wanted a reminder of exactly what I should be doing.</p>
+<p>Once I got the above working, I flipped on <span class="caps">PHP</span> in my <code>httpd.conf</code> and set Apache to run as my user. Then, I changed my <code>index.php</code> to <a href="http://gist.github.com/187147">this</a>. The key lines are at the bottom. They tell <span class="caps">PHP</span> to fire off a command, just as if I issued it from a terminal. In my setup, the command will fire up <a href="http://culturedcode.com/things/">Things</a> if it isn&#8217;t running, or move it to the front of my windows if it is.</p>
+<h2>Variations</h2>
+<p>There&#8217;s a bunch of ways you could do this differently. Rather than modifying <code>/etc/hosts</code>, you could firewall off any distracting domains. You could run your own <span class="caps">HTTP</span> proxy and do the filtering there. Or, rather than popping up an application, you could have that <span class="caps">PHP</span> script (or however you decide to implement it) pull your to-do list right into the admonishing web page. Or, you could, y&#8217;know, just use plain old real actual self control. But that&#8217;s easier said than done, I&#8217;ve found.</p>
+<p>What you do with the block page is really up to you. All I know is, popping up my to-do list works for me as motivation to get something done. I took a couple extra steps and ensured that only my local machine could get to that page, so folks on my local network couldn&#8217;t be popping up Things all day long by hitting the right IP in their browser. Other than that, I haven&#8217;t wanted to do anything fancier. That&#8217;s not really the point, after all.</p>
+<p>Incidentally, I&#8217;ve found that limiting my consumption of distracting domains to the iPhone is a good way of regulating my time. If I have my iPhone in hand for more than a minute or two, I&#8217;m probably waiting around for something, in which case it wouldn&#8217;t hurt to see what&#8217;s up on <a href="http://news.ycombinator.com/">Hacker News</a>. Because reading on the iPhone isn&#8217;t optimal, I&#8217;m not likely to get lost in a sea of interesting links for an hour or two.</p>
+<time class="signoff" datetime="2009-09-14 00:00:00 -0700">
+  &mdash;2009-09-14 00:00:00 -0700
+</time>
+</div>
+
+			  </div>
+		</div>
+		<script type="text/javascript">
+	var myFile = document.location.toString();
+	if (myFile.match('#')) { // the URL contains an anchor
+	  // click the navigation item corresponding to the anchor
+	  var myAnchor = '#' + myFile.split('#')[1];
+		  $(myAnchor).show();
+	}
+</script>
+<script type="text/javascript" src="/js/jquery.fancybox-1.2.6.pack.js"></script>
+<script type="text/javascript" src="/js/nav.js"></script>
+<script type="text/javascript" src="/js/hashgrid.js"></script>
+	</body>
+</html>
