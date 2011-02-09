@@ -1,4 +1,3 @@
-
 /**
  * Grid
  */
@@ -199,6 +198,7 @@
 	font-size: 140px;
 	color: #2B2A24;
 	font-family:"MuseoSlab500";
+        margin-bottom: 40px;
 }
 	
 	h1, h2, h3 { margin-top:0; margin-bottom:0; }
