@@ -1,6 +1,7 @@
 ---
+title: 'Policy, Technology, and Law: Who Decides?'
+date: 2010-02-07 00:00:00 Z
 layout: post
-title: "Policy, Technology, and Law: Who Decides?"
 ---
 
 # {{ page.title }}
